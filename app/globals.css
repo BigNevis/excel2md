@@ -57,12 +57,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-/* Asegúrate de que el modo oscuro esté activado */
-:root {
-  color-scheme: dark;
-}
-
-html {
-  @apply dark;
-}
