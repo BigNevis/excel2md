@@ -29,7 +29,8 @@ export default function CargaArchivos() {
   }
 
   if (showSeleccion) {
-    return <SeleccionItems onPrevious={handleVolverACarga} />
+    // Pasar el archivo seleccionado al componente SeleccionItems
+    return <SeleccionItems file={file} onPrevious={handleVolverACarga} />;
   }
 
   return (
