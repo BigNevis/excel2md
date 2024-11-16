@@ -28,4 +28,4 @@ dist-ssr
 .env
 .env.local
 
-# ... (otras entradas)
+# ... (otras entradas)".env" 
