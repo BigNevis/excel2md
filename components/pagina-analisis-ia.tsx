@@ -9,55 +9,7 @@ import { ArrowLeft, Send, Edit, Save } from 'lucide-react';
 import RespuestaIA from './RespuestaIA';
 import { useToast } from "./ui/use-toast";
 
-const promptPredefinido = `Eres un analista experto en PL/SQL y tu tarea es analizar el siguiente código proporcionado y devolver una respuesta estructurada en formato Markdown con los siguientes detalles:
-
-Estructura esperada del resultado:
-Nombre de servicio: Proponer un nombre descriptivo para el servicio basado en el propósito del PL/SQL.
-EndPoint: Proponer un endpoint basado en la lógica o propósito del PL/SQL.
-Tipo: Determinar el tipo de operación HTTP (GET, POST, PUT, UPDATE, DELETE) que se ajusta al PL/SQL.
-Pantalla: No incluir información.
-Nombre: No incluir información.
-Consideraciones de seguridad:
-Si el PL/SQL incluye la palabra permiso=, enlistar los permisos mencionados y en qué contexto aparecen.
-Momento de ejecución: No incluir información.
-Descripción: Explicar en lenguaje natural lo que hace el PL/SQL.
-Observaciones adicionales:
-Agregar observaciones técnicas relevantes para el desarrollo del frontend en Angular o del backend en Java.
-Código encontrado o sugerido:
-Mostrar el PL/SQL proporcionado en formato Markdown con sintaxis SQL.
-Input:
-Generar una tabla en Markdown con columnas:
-NombreParametro
-Mandatoridad
-TipoDato
-Ejemplo
-Completarla según los parámetros de entrada del PL/SQL.
-Output:
-Generar una tabla en Markdown con columnas:
-NombreParametro
-Mandatoridad
-TipoDato
-Ejemplo
-Completarla según los parámetros de salida del PL/SQL.
-Array:
-Si el output es un array de objetos, generar una tabla en Markdown con columnas:
-NombreParametro
-Mandatoridad
-TipoDato
-Ejemplo
-Completarla según el análisis del PL/SQL.
-Error/Recovery Handling:
-Proponer códigos de error estándar.
-Proponer códigos de error específicos basados en excepciones del PL/SQL.
-Generar una tabla en Markdown con columnas:
-Codigo de error
-Tipo
-Descripcion
-Ejemplo
-json.Input:
-Generar un JSON de ejemplo en Markdown basado en los parámetros de entrada analizados.
-json.Output:
-Generar un JSON de ejemplo en Markdown basado en los parámetros de salida analizados.`;
+const promptPredefinido = `Eres un analista experto en PL/SQL. Analiza el siguiente código y genera una respuesta en formato Markdown con los siguientes apartados: Nombre de servicio (proponer un nombre descriptivo según el propósito del PL/SQL), Endpoint (proponer un endpoint basado en la lógica del PL/SQL), Tipo (determinar el tipo de operación HTTP que corresponde: GET, POST, PUT, DELETE, etc.), Consideraciones de seguridad (si incluye "permiso=", listar los permisos y el contexto en que aparecen), Descripción (explicar en lenguaje natural y humanizado todo el PL/SQL, incluyendo los nombres exactos de los parámetros tal como aparecen en el código, entre comillas o destacados, y sin interpretarlos o reemplazarlos), Validaciones (listar las validaciones identificadas separando las de Frontend y Backend), Observaciones adicionales (proponer un código en formato Markdown de código Java para la creación del servicio basado en el análisis del PL/SQL), Código encontrado o sugerido (incluir el mismo PL/SQL enviado como entrada sin modificarlo, en formato Markdown con sintaxis SQL), Input (generar una tabla con columnas: NombreParametro, Mandatoriedad, TipoDato, Ejemplo), Output (generar una tabla con columnas: NombreParametro, Mandatoriedad, TipoDato, Ejemplo), Array (si el output es un array de objetos, generar una tabla con las mismas columnas), Manejo de errores (proponer códigos de error estándar y específicos, generar una tabla con columnas: Codigo de error, Tipo, Descripción, Ejemplo json), json.Input (generar un JSON de ejemplo basado en los parámetros de entrada), json.Output (generar un JSON de ejemplo basado en los parámetros de salida). Todo debe estar en un formato estructurado y claro. Asegúrate de incluir el PL/SQL proporcionado en el campo "Código encontrado o sugerido" exactamente como fue enviado. PL/SQL para analizar:`;
 
 interface PaginaAnalisisIAProps {
   onVolver: () => void;

@@ -3,11 +3,12 @@ import PantallaInicio from "../components/PantallaInicio";
 import CargaArchivos from "../components/carga-archivos";
 import PaginaEnConstruccion from "../components/PaginaEnConstruccion";
 import PaginaAnalisisIA from "../components/pagina-analisis-ia";
+import ProjectTimelineView from "../components/project-timeline-view";
 
 export default function App() {
-  const [pantallaActual, setPantallaActual] = useState<"inicio" | "carga" | "construccion" | "analisis">("inicio");
+  const [pantallaActual, setPantallaActual] = useState<"inicio" | "carga" | "construccion" | "analisis" | "timeline">("inicio");
 
-  const navegarAPantalla = (pantalla: "inicio" | "carga" | "construccion" | "analisis") => {
+  const navegarAPantalla = (pantalla: "inicio" | "carga" | "construccion" | "analisis" | "timeline") => {
     setPantallaActual(pantalla);
   };
 
@@ -17,6 +18,7 @@ export default function App() {
         <PantallaInicio
           onTransformarClick={() => navegarAPantalla("carga")}
           onAnalizarClick={() => navegarAPantalla("analisis")}
+          onTimelineClick={() => navegarAPantalla("timeline")}
         />
       )}
       {pantallaActual === "carga" && (
@@ -34,6 +36,11 @@ export default function App() {
         <PaginaAnalisisIA
           onVolver={() => navegarAPantalla("inicio")}
           onSiguiente={() => navegarAPantalla("construccion")}
+        />
+      )}
+      {pantallaActual === "timeline" && (
+        <ProjectTimelineView
+          onVolverInicio={() => navegarAPantalla("inicio")}
         />
       )}
     </>
