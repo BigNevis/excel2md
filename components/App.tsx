@@ -6,7 +6,7 @@ import CargaArchivos from "./Excel2md/carga-archivos";
 import PaginaEnConstruccion from "../components/PaginaEnConstruccion";
 import PaginaAnalisisIA from "./analisisplsql/pagina-analisis-ia";
 import ProjectTimelineView from "./roadmap/project-timeline-view";
-import AIAnalysisView from "../components/ai-analysis-view";
+import AIAnalysisView from "./roadmap/ai-analysis-view";
 
 export default function App() {
   const [pantallaActual, setPantallaActual] = useState<"inicio" | "carga" | "construccion" | "analisis" | "timeline" | "ai-analysis">("inicio");
