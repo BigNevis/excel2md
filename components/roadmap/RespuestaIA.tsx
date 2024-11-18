@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
 import { ScrollArea } from "../ui/scroll-area";
-import { Button } from "../ui/button";
+import { Button } from "../ui/Button";
 import { ArrowLeft, Download } from 'lucide-react';
 
 interface RespuestaIAProps {

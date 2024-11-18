@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from "../ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { Button } from "../ui/Button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/Card";
 import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
 import { ArrowLeft, Send, Edit, Save } from 'lucide-react';
