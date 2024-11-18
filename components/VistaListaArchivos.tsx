@@ -6,6 +6,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../compone
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table";
 import { ScrollArea, ScrollBar } from "../components/ui/scroll-area";
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { Download, Eye, Code, ChevronLeft, ChevronRight, FileSpreadsheet, Archive } from 'lucide-react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
@@ -86,8 +87,8 @@ export default function VistaListaArchivos({ archivos, onVolverSeleccion }: Vist
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-500 to-indigo-600 p-4">
-      <Card className="w-full max-w-4xl bg-white/10 backdrop-blur-md border-none shadow-2xl">
+    <div className="min-h-screen flex flex-col items-center justify-start bg-gradient-to-br from-purple-500 to-indigo-600 p-4">
+      <Card className="w-full max-w-4xl bg-white/10 backdrop-blur-md border-none shadow-2xl mb-4">
         <CardHeader>
           <CardTitle className="text-3xl md:text-4xl font-bold text-center text-white mb-8">
             Archivos Generados
@@ -176,16 +177,29 @@ export default function VistaListaArchivos({ archivos, onVolverSeleccion }: Vist
       </Card>
 
       {(archivoSeleccionado || objetoSeleccionado) && (
-        <Card className="mt-4 w-full max-w-4xl bg-white/10 backdrop-blur-md border-none shadow-2xl">
+        <Card className="w-full max-w-4xl bg-white/10 backdrop-blur-md border-none shadow-2xl">
           <CardHeader>
             <CardTitle className="text-2xl font-bold text-white">
               {archivoSeleccionado ? `Vista Previa: ${archivoSeleccionado.nombre}` : 'Vista del Objeto'}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <ScrollArea className="h-[400px] w-full rounded-md border border-white/20 p-4 bg-white/5">
+            <ScrollArea className="h-[300px] w-full rounded-md border border-white/20 p-4 bg-white/5">
               {archivoSeleccionado ? (
-                <ReactMarkdown className="text-white prose prose-invert max-w-none">
+                <ReactMarkdown 
+                  className="text-white prose prose-invert max-w-none"
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    table: ({node, ...props}) => (
+                      <div className="overflow-x-auto">
+                        <table className="min-w-full divide-y divide-gray-700 my-4" {...props} />
+                      </div>
+                    ),
+                    thead: ({node, ...props}) => <thead className="bg-gray-700" {...props} />,
+                    th: ({node, ...props}) => <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider" {...props} />,
+                    td: ({node, ...props}) => <td className="px-6 py-4 whitespace-nowrap text-sm" {...props} />,
+                  }}
+                >
                   {archivoSeleccionado.contenido}
                 </ReactMarkdown>
               ) : (
