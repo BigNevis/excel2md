@@ -15,7 +15,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collap
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/Dialog"
 import { motion, AnimatePresence } from "framer-motion"
 import * as XLSX from 'xlsx'
-import { ExternalLink, ChevronDown, ChevronRight, Home } from 'lucide-react'
+import { ExternalLink, ChevronDown, ChevronRight, Home, FileText } from 'lucide-react'
 
 interface Task {
   Proyecto: string
@@ -53,7 +53,7 @@ interface GroupedTasks {
 
 const environments = ['Discovery', 'DEV', 'TEST', 'UAT', 'PROD']
 
-export default function ProjectTimelineView({ onVolverInicio }: { onVolverInicio: () => void }) {
+export default function ProjectTimelineView({ onVolverInicio, onAIAnalysis }: { onVolverInicio: () => void, onAIAnalysis: (data: any) => void }) {
   const [teams, setTeams] = useState<TeamData[]>([])
   const [activeTeam, setActiveTeam] = useState<string>('')
   const [activeEnvironment, setActiveEnvironment] = useState<string>('Discovery')
@@ -63,6 +63,7 @@ export default function ProjectTimelineView({ onVolverInicio }: { onVolverInicio
   const [isSheetSelectionOpen, setIsSheetSelectionOpen] = useState(false)
   const [workbook, setWorkbook] = useState<XLSX.WorkBook | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [isExecutiveSummaryOpen, setIsExecutiveSummaryOpen] = useState(false)
 
   const handleFileUpload = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -210,14 +211,30 @@ export default function ProjectTimelineView({ onVolverInicio }: { onVolverInicio
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
+      case 'no iniciado':
+        return 'bg-gray-500'
+      case 'en progreso':
+        return 'bg-blue-500'
+      case 'imp. dev':
+        return 'bg-cyan-500'
+      case 'qa dev':
+        return 'bg-teal-500'
+      case 'imp test':
+        return 'bg-green-500'
+      case 'qa test':
+        return 'bg-lime-500'
+      case 'pendiente uat':
+        return 'bg-yellow-500'
+      case 'pendiente aprobacion uat':
+        return 'bg-amber-500'
+      case 'pendiente implementar prod':
+        return 'bg-orange-500'
+      case 'implementado en prod':
+        return 'bg-green-700'
       case 'bloqueado por bug':
         return 'bg-red-500'
-      case 'uat':
-        return 'bg-yellow-500'
-      case 'implementado en prod':
-        return 'bg-green-500'
       default:
-        return 'bg-blue-500'
+        return 'bg-purple-500'
     }
   }
 
@@ -275,8 +292,29 @@ export default function ProjectTimelineView({ onVolverInicio }: { onVolverInicio
     return difference <= 0 ? { backgroundColor: 'rgb(34 197 94)', color: 'white' } : {}
   }
 
-  const handleReturnHome = () => {
-    onVolverInicio();
+  const calculateExecutiveSummary = () => {
+    const allTasks = teams.flatMap(team => team.tasks)
+    const totalTasks = allTasks.length
+    const completedTasks = allTasks.filter(task => task.Estado.toLowerCase() === 'implementado en prod').length
+    const delayedTasks = allTasks.filter(task => {
+      const dates = getEnvironmentDates(task, 'PROD')
+      return getDateDifference(dates.estimated, dates.actual) > 0
+    }).length
+
+    return {
+      totalTasks,
+      completedTasks,
+      delayedTasks,
+      completionRate: totalTasks > 0 ? (completedTasks / totalTasks * 100).toFixed(2) : '0',
+      delayRate: totalTasks > 0 ? (delayedTasks / totalTasks * 100).toFixed(2) : '0'
+    }
+  }
+
+  const executiveSummary = useMemo(calculateExecutiveSummary, [teams])
+
+  const handleAIAnalysis = () => {
+    const allTasks = teams.flatMap(team => team.tasks)
+    onAIAnalysis(allTasks)
   }
 
   return (
@@ -288,7 +326,7 @@ export default function ProjectTimelineView({ onVolverInicio }: { onVolverInicio
               variant="ghost"
               size="icon"
               className="text-white hover:bg-white/10"
-              onClick={handleReturnHome}
+              onClick={onVolverInicio}
             >
               <Home className="h-6 w-6" />
               <span className="sr-only">Volver al inicio</span>
@@ -296,7 +334,15 @@ export default function ProjectTimelineView({ onVolverInicio }: { onVolverInicio
             <CardTitle className="text-2xl md:text-3xl font-bold text-center text-white">
               Línea de Tiempo del Proyecto
             </CardTitle>
-            <div className="w-10" />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-white hover:bg-white/10"
+              onClick={handleAIAnalysis}
+            >
+              <FileText className="h-6 w-6" />
+              <span className="sr-only">Análisis IA</span>
+            </Button>
           </div>
         </CardHeader>
         <CardContent>
@@ -416,8 +462,13 @@ export default function ProjectTimelineView({ onVolverInicio }: { onVolverInicio
                                       </div>
                                       
                                       <div className="flex-1 pt-1 md:pt-2">
-                                        <h3 className="text-lg md:text-xl font-semibold text-white mb-2 flex items-center">
-                                          <span className={`w-3 h-3 rounded-full mr-2 ${getStatusColor(task.Estado)}`}></span>
+                                        <h3 className="text-lg md:text-xl font-semibold text-white mb-2 flex items-center gap-2">
+                                          <Badge 
+                                            variant="secondary" 
+                                            className={`${getStatusColor(task.Estado)} text-white`}
+                                          >
+                                            {task.Estado}
+                                          </Badge>
                                           {task.Epica}
                                         </h3>
                                         <Card className="bg-white/5 border-none">
@@ -493,20 +544,6 @@ export default function ProjectTimelineView({ onVolverInicio }: { onVolverInicio
                                                 {getDateDifference(getEnvironmentDates(task, env).estimated, getEnvironmentDates(task, env).actual)} sprint(s)
                                               </Badge>
                                             </div>
-                                            <TooltipProvider>
-                                              <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                  <div className="text-sm text-white/70 cursor-help">
-                                                    Estado: {task.Estado}
-                                                  </div>
-                                                </TooltipTrigger>
-                                                <TooltipContent side="right">
-                                                  <p>Asignado a: {task.AsignadoA}</p>
-                                                  {task.BloqueadoPor && <p>Bloqueado por: {task.BloqueadoPor}</p>}
-                                                  {task.Motivos && <p>Motivos: {task.Motivos}</p>}
-                                                </TooltipContent>
-                                              </Tooltip>
-                                            </TooltipProvider>
                                           </CardContent>
                                         </Card>
                                       </div>
@@ -526,6 +563,21 @@ export default function ProjectTimelineView({ onVolverInicio }: { onVolverInicio
           )}
         </CardContent>
       </Card>
+
+      <Dialog open={isExecutiveSummaryOpen} onOpenChange={setIsExecutiveSummaryOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Resumen Ejecutivo</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p><strong>Total de tareas:</strong> {executiveSummary.totalTasks}</p>
+            <p><strong>Tareas completadas:</strong> {executiveSummary.completedTasks}</p>
+            <p><strong>Tasa de finalización:</strong> {executiveSummary.completionRate}%</p>
+            <p><strong>Tareas retrasadas:</strong> {executiveSummary.delayedTasks}</p>
+            <p><strong>Tasa de retraso:</strong> {executiveSummary.delayRate}%</p>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
