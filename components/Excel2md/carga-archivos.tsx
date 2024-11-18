@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, ChangeEvent } from 'react';
-import { Button } from "../components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/Card";
-import { Input } from "../components/ui/input";
-import { Label } from "../components/ui/label";
+import { Button } from "../ui/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 import { Upload, File, ArrowRight, Home } from 'lucide-react';
 import SeleccionItems from './seleccion-items';
 

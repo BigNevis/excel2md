@@ -1,9 +1,9 @@
 'use client'
 
 import React from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/Card"
-import { Button } from "./ui/Button"
-import { ScrollArea } from "./ui/scroll-area"
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card"
+import { Button } from "../ui/Button"
+import { ScrollArea } from "../ui/scroll-area"
 import { Home } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'

@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
-import { Button } from "../components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
-import { Checkbox } from "../components/ui/checkbox";
-import { ScrollArea, ScrollBar } from "../components/ui/scroll-area";
+import { Button } from "../ui/Button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/Card";
+import { Checkbox } from "../ui/checkbox";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import VistaListaArchivos from './VistaListaArchivos';
 import { ArrowLeft, FileSpreadsheet } from 'lucide-react';
 

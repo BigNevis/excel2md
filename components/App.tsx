@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import PantallaInicio from "../components/PantallaInicio";
-import CargaArchivos from "../components/carga-archivos";
+import CargaArchivos from "./Excel2md/carga-archivos";
 import PaginaEnConstruccion from "../components/PaginaEnConstruccion";
-import PaginaAnalisisIA from "../components/pagina-analisis-ia";
-import ProjectTimelineView from "../components/project-timeline-view";
+import PaginaAnalisisIA from "./analisisplsql/pagina-analisis-ia";
+import ProjectTimelineView from "./roadmap/project-timeline-view";
 import AIAnalysisView from "../components/ai-analysis-view";
 
 export default function App() {

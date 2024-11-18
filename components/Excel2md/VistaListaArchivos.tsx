@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from "../components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table";
-import { ScrollArea, ScrollBar } from "../components/ui/scroll-area";
+import { Button } from "../ui/Button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/Card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Download, Eye, Code, ChevronLeft, ChevronRight, FileSpreadsheet, Archive } from 'lucide-react';
