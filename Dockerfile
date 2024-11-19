@@ -32,4 +32,4 @@ RUN npm ci --only=production && npm cache clean --force
 EXPOSE 3000
 
 # Comando para ejecutar la aplicación
-CMD ["npm", "run", "start"]
+CMD ["node", "server.js"]
