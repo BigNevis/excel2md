@@ -72,8 +72,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"), 
-    require("@tailwindcss/typography") // Agregamos el plugin para Markdown
-  ],
-};
+  plugins: [require("tailwindcss-animate")],
+}
