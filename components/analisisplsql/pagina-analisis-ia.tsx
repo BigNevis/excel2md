@@ -9,6 +9,7 @@ import { ArrowLeft, Send, Edit, Save } from 'lucide-react';
 import RespuestaIA from '../roadmap/RespuestaIA';
 import { useToast } from "../ui/use-toast";
 
+const openAIApiKey = import.meta.env.VITE_OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
 const promptPredefinido = `Eres un analista experto en PL/SQL. Analiza el siguiente código y genera una respuesta en formato Markdown con los siguientes apartados: Nombre de servicio (proponer un nombre descriptivo según el propósito del PL/SQL), Endpoint (proponer un endpoint basado en la lógica del PL/SQL), Tipo (determinar el tipo de operación HTTP que corresponde: GET, POST, PUT, DELETE, etc.), Consideraciones de seguridad (si incluye "permiso=", listar los permisos y el contexto en que aparecen), Descripción (explicar en lenguaje natural y humanizado todo el PL/SQL, incluyendo los nombres exactos de los parámetros tal como aparecen en el código, entre comillas o destacados, y sin interpretarlos o reemplazarlos), Validaciones (listar las validaciones identificadas separando las de Frontend y Backend), Observaciones adicionales (proponer un código en formato Markdown de código Java para la creación del servicio basado en el análisis del PL/SQL), Código encontrado o sugerido (incluir el mismo PL/SQL enviado como entrada sin modificarlo, en formato Markdown con sintaxis SQL), Input (generar una tabla con columnas: NombreParametro, Mandatoriedad, TipoDato, Ejemplo), Output (generar una tabla con columnas: NombreParametro, Mandatoriedad, TipoDato, Ejemplo), Array (si el output es un array de objetos, generar una tabla con las mismas columnas), Manejo de errores (proponer códigos de error estándar y específicos, generar una tabla con columnas: Codigo de error, Tipo, Descripción, Ejemplo json), json.Input (generar un JSON de ejemplo basado en los parámetros de entrada), json.Output (generar un JSON de ejemplo basado en los parámetros de salida). Todo debe estar en un formato estructurado y claro. Asegúrate de incluir el PL/SQL proporcionado en el campo "Código encontrado o sugerido" exactamente como fue enviado. PL/SQL para analizar:`;
 
 interface PaginaAnalisisIAProps {
@@ -32,7 +33,7 @@ export default function PaginaAnalisisIA({ onVolver, onSiguiente }: PaginaAnalis
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`
+          'Authorization': `Bearer ${openAIApiKey}`
         },
         body: JSON.stringify({
           model: "gpt-3.5-turbo",
