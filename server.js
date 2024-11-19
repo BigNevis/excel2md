@@ -8,8 +8,10 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Sirve los archivos estáticos desde la carpeta dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
+// Maneja cualquier solicitud que no sea encontrada en los archivos estáticos
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });

@@ -16,7 +16,11 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['react', 'react-dom', 'lucide-react', 'xlsx', 'class-variance-authority', 'tailwind-merge'],
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+        },
+      },
     },
   },
   optimizeDeps: {
