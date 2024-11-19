@@ -16,11 +16,11 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['react', 'react-dom', 'lucide-react', 'xlsx', 'class-variance-authority'],
+      external: ['react', 'react-dom', 'lucide-react', 'xlsx', 'class-variance-authority', 'tailwind-merge'],
     },
   },
   optimizeDeps: {
-    include: ['lucide-react', 'xlsx', 'class-variance-authority'],
+    include: ['lucide-react', 'xlsx', 'class-variance-authority', 'tailwind-merge'],
   },
   server: {
     host: true,
