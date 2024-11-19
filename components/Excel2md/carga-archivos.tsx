@@ -3,7 +3,7 @@
 import { useState, ChangeEvent } from 'react';
 import { Button } from "../ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
-import { Input } from "../ui/input";
+import { Input } from "../ui/Input";
 import { Label } from "../ui/label";
 import { Upload, File, ArrowRight, Home } from 'lucide-react';
 import SeleccionItems from './seleccion-items';
