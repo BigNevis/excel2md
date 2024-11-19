@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Button } from "../ui/Button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/Card";
 import { Textarea } from "../ui/textarea";
-import { Label } from "../ui/label";
+import { Label } from "../ui/Label";
 import { ArrowLeft, Send, Edit, Save } from 'lucide-react';
 import RespuestaIA from './RespuestaIA';
 import { useToast } from "../ui/use-toast";
