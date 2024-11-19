@@ -23,6 +23,7 @@ WORKDIR /app
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/package.json ./
 COPY --from=build /app/package-lock.json ./  
+COPY --from=build /app/server.js ./
 
 # Instalar solo las dependencias de producción
 RUN npm ci --only=production && npm cache clean --force
