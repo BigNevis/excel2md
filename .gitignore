@@ -45,3 +45,22 @@ node_modules
 
 # Archivos de sistema
 Thumbs.db
+
+# Agregar estas líneas
+# Next.js
+.next/
+out/
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+
+# PWA files
+**/public/sw.js
+**/public/workbox-*.js
+**/public/worker-*.js
+**/public/sw.js.map
+**/public/workbox-*.js.map
+**/public/worker-*.js.map

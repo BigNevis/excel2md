@@ -15,11 +15,11 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['react', 'react-dom', 'lucide-react', 'xlsx'],
+      external: ['react', 'react-dom', 'lucide-react', 'xlsx', 'class-variance-authority'],
     },
   },
   optimizeDeps: {
-    include: ['lucide-react', 'xlsx'],
+    include: ['lucide-react', 'xlsx', 'class-variance-authority'],
   },
   server: {
     host: true,
