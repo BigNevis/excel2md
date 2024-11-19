@@ -9,17 +9,12 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware para parsear JSON y urlencoded data
-app.use(express.json());
+
 app.use(express.urlencoded({ extended: true }));
 
 // Sirve los archivos estáticos desde la carpeta dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Ruta para verificar el estado del servidor
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', message: 'Server is running' });
-});
 
 // Ruta para verificar las variables de entorno (solo para desarrollo)
 if (process.env.NODE_ENV !== 'production') {
