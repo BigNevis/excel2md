@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
 import { Button } from "../ui/Button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/Card";
-import { Checkbox } from "../ui/checkbox";
+import { Checkbox } from "../ui/CheckBox";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import VistaListaArchivos from './VistaListaArchivos';
 import { ArrowLeft, FileSpreadsheet } from 'lucide-react';
